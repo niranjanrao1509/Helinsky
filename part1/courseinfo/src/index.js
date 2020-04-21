@@ -25,14 +25,14 @@ const Total = ({ parts }) => {
 
 const Content = ({parts}) => {
   return (
-  <>
+  <p>
       {
         parts.map((part, index) => {
           return (
             <Part key={index} part={part.name} exercise={part.exercises} />
           );
         })}
-    </>
+    </p>
     )
 }
 
@@ -43,7 +43,6 @@ const Part = ({ part, exercise }) => {
     </p>
   );
 };
-
 
 
 const App = () => {
