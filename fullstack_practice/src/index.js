@@ -55,6 +55,23 @@ import ReactDOM from 'react-dom'
 // }
 
 
+const History = ({props}) =>{
+  if(props.length == 0) {
+  return (
+  <div>
+    <p>Click buttons to start</p>
+  </div>
+  )
+  }
+
+  return(
+  <div>
+    <p>Clicked buttons are</p>
+    <p>{props.join(' ')}</p>
+  </div>
+  )
+}
+
 const App = (props) => {
   // Using two states
   // const [left, setLeft] = useState(0)
@@ -62,18 +79,16 @@ const App = (props) => {
 
 
   const [clicks, setClicks] = useState({ left: 0, right: 0})
-  const handleLeftClick = () =>{
-    const newClicks = {
-      ...clicks, left : clicks.left + 1 //Creates a copy of the clicks object, and change value of left
+  const [allclicks, setAll] = useState([])
 
-    }
-    setClicks(newClicks)
+  const handleLeftClick = () =>{
+  setClicks({ ...clicks, left: clicks.left + 1 })
+  setAll(allclicks.concat('L'))
+
   }
   const handleRightClick = () =>{
-    const newClicks = {
-     ...clicks, right : clicks.right + 1
-    }
-    setClicks(newClicks)
+  setClicks({ ...clicks, right: clicks.right + 1 })
+  setAll(allclicks.concat('R'))
   }
 
   return (
@@ -83,6 +98,7 @@ const App = (props) => {
         <button onClick= {handleLeftClick}> left </button>
         <button onClick= {handleRightClick}>right</button>
         {clicks.right}
+        <History props = {allclicks} />
       </div>
     </div>
   )
