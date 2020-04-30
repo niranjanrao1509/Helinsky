@@ -54,60 +54,102 @@ import ReactDOM from 'react-dom'
 //   )
 // }
 
+//PART 1.D
+// const History = ({props}) =>{
+//   if(props.length == 0) {
+//   return (
+//   <div>
+//     <p>Click buttons to start</p>
+//   </div>
+//   )
+//   }
 
-const History = ({props}) =>{
-  if(props.length == 0) {
-  return (
-  <div>
-    <p>Click buttons to start</p>
-  </div>
-  )
+//   return(
+//   <div>
+//     <p>Clicked buttons are</p>
+//     <p>{props.join(' ')}</p>
+//   </div>
+//   )
+// }
+
+// const App = (props) => {
+//   // Using two states
+//   // const [left, setLeft] = useState(0)
+//   // const [right, setRight] = useState(0)
+
+
+//   const [clicks, setClicks] = useState({ left: 0, right: 0})
+//   const [allclicks, setAll] = useState([])
+
+//   const handleLeftClick = () =>{
+//   setClicks({ ...clicks, left: clicks.left + 1 })
+//   setAll(allclicks.concat('L'))
+
+//   }
+//   const handleRightClick = () =>{
+//   setClicks({ ...clicks, right: clicks.right + 1 })
+//   setAll(allclicks.concat('R'))
+//   }
+
+//   return (
+//     <div>
+//       <div>
+//         {clicks.left}
+//         <button onClick= {handleLeftClick}> left </button>
+//         <button onClick= {handleRightClick}>right</button>
+//         {clicks.right}
+//         <History props = {allclicks} />
+//       </div>
+//     </div>
+//   )
+// }
+
+// 2.A
+const notes = [
+  {
+    id: 1,
+    content: 'HTML is easy',
+    date: '2019-05-30T17:30:31.098Z',
+    important: true
+  },
+  {
+    id: 2,
+    content: 'Browser can execute only Javascript',
+    date: '2019-05-30T18:39:34.091Z',
+    important: false
+  },
+  {
+    id: 3,
+    content: 'GET and POST are the most important methods of HTTP protocol',
+    date: '2019-05-30T19:20:14.298Z',
+    important: true
   }
-
+]
+const Note = ({note}) =>{
   return(
-  <div>
-    <p>Clicked buttons are</p>
-    <p>{props.join(' ')}</p>
-  </div>
+    <li>{note.content}</li>
   )
 }
 
-const App = (props) => {
-  // Using two states
-  // const [left, setLeft] = useState(0)
-  // const [right, setRight] = useState(0)
 
-
-  const [clicks, setClicks] = useState({ left: 0, right: 0})
-  const [allclicks, setAll] = useState([])
-
-  const handleLeftClick = () =>{
-  setClicks({ ...clicks, left: clicks.left + 1 })
-  setAll(allclicks.concat('L'))
-
-  }
-  const handleRightClick = () =>{
-  setClicks({ ...clicks, right: clicks.right + 1 })
-  setAll(allclicks.concat('R'))
-  }
+//map takes a function as parameter. Key is required in Map
+const App = ({notes}) => {
+//  const { notes } = props
 
   return (
     <div>
-      <div>
-        {clicks.left}
-        <button onClick= {handleLeftClick}> left </button>
-        <button onClick= {handleRightClick}>right</button>
-        {clicks.right}
-        <History props = {allclicks} />
-      </div>
+      <h1>Notes</h1>
+
+      <ul>
+        {notes.map(note => 
+          <Note key={note.id} note = {note} />
+          )} 
+      </ul>
     </div>
   )
 }
 
-
-
 ReactDOM.render(
-  <App />, 
+  <App notes={notes} />,
   document.getElementById('root')
 )
-
