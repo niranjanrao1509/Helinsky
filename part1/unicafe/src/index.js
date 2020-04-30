@@ -1,45 +1,50 @@
-// 2.A
-
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './App'
-
-const notes = [
-  {
-    id: 1,
-    content: 'HTML is easy',
-    date: '2019-05-30T17:30:31.098Z',
-    important: true
-  },
-  {
-    id: 2,
-    content: 'Browser can execute only Javascript',
-    date: '2019-05-30T18:39:34.091Z',
-    important: false
-  },
-  {
-    id: 3,
-    content: 'GET and POST are the most important methods of HTTP protocol',
-    date: '2019-05-30T19:20:14.298Z',
-    important: true
-  }
-]
-
-
-//map takes a function as parameter. Key is required in Map
-
-ReactDOM.render(
-  <App notes={notes} />,
-  document.getElementById('root')
-)
-
-
-
-
 
 // import React, { useState } from 'react'
 // import ReactDOM from 'react-dom'
 // import Note from './components/Note'
+
+import React, { useState } from 'react'
+import ReactDOM from 'react-dom'
+
+
+const Button = ({button_fn, button_name}) =>{
+  return(
+    <div>
+      <button onClick = {button_fn}>
+        {button_name}
+      </button>
+    </div>
+
+  )
+}
+
+const App = () => {
+  // save clicks of each button to own state
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+  const [allclicks, setAll] = useState([])
+  const set_good = () => setGood(good + 1)
+  const set_bad = () => setBad(bad+1)
+  const set_neutral = () => setNeutral(neutral + 1)
+
+  return (
+    <div>
+      <h1>Give Feedback</h1>
+      <Button button_fn = {set_good} button_name = {"good"} />
+      <Button button_fn = {set_bad} button_name = {"bad"} />
+      <Button button_fn = {set_neutral} button_name = {"neutral"} />
+      <h2> Statistics </h2>
+      <p>good = {good}</p>
+      <p>bad = {bad}</p>
+      <p>neutral = {neutral}</p>
+    </div>
+  )
+}
+
+ReactDOM.render(<App />, 
+  document.getElementById('root')
+)
 
 
 //PART 1.C
@@ -145,3 +150,5 @@ ReactDOM.render(
 //   )
 // }
 
+
+// ReactDOM.render(<App />, document.getElementById('root'))
