@@ -7,6 +7,25 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
 
+
+const History = ({props}) =>{
+  if (props.length == 0){
+    return(
+      <div>
+        <p>No Statistics Available</p>
+      </div>
+    )
+  }
+  return(
+  <div>
+    <p>Clicked buttons are</p>
+    <p>{props.join(' ')}</p>
+  </div>
+  )
+}
+
+
+
 const Button = ({button_fn, button_name}) =>{
   return(
     <div>
@@ -20,13 +39,24 @@ const Button = ({button_fn, button_name}) =>{
 
 const App = () => {
   // save clicks of each button to own state
+  const [clicks, setClicks] = useState({good: 0, bad: 0 ,neutral :0})
+
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
   const [allclicks, setAll] = useState([])
-  const set_good = () => setGood(good + 1)
-  const set_bad = () => setBad(bad+1)
-  const set_neutral = () => setNeutral(neutral + 1)
+  const set_good = () => {
+    setClicks({ ...clicks, good: clicks.good + 1 })
+    setAll(allclicks.concat('G'))
+  }
+  const set_bad = () => {
+    setClicks({ ...clicks, bad: clicks.bad + 1 })
+    setAll(allclicks.concat('B'))
+  }
+  const set_neutral = () => {
+    setClicks({ ...clicks, neutral: clicks.neutral + 1 })
+    setAll(allclicks.concat('N'))
+  }  
 
   return (
     <div>
@@ -35,9 +65,10 @@ const App = () => {
       <Button button_fn = {set_bad} button_name = {"bad"} />
       <Button button_fn = {set_neutral} button_name = {"neutral"} />
       <h2> Statistics </h2>
-      <p>good = {good}</p>
-      <p>bad = {bad}</p>
-      <p>neutral = {neutral}</p>
+      <p>good = {clicks.good}</p>
+      <p>bad = {clicks.bad}</p>
+      <p>neutral = {clicks.neutral}</p>
+      <History props = {allclicks} />
     </div>
   )
 }
